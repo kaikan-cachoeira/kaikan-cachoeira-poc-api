@@ -15,8 +15,8 @@ export default function ConsultaClima() {
     try {
       const dados = await consultarClimaSaoPaulo();
       setClima(dados);
-    } catch {
-      setErro('Não foi possível consultar o clima. Confira sua conexão e tente novamente.');
+    } catch (erro) {
+      setErro(erro.message || 'Não foi possível consultar o clima. Tente novamente.');
     } finally {
       setCarregando(false);
     }
@@ -31,7 +31,7 @@ export default function ConsultaClima() {
         </button>
       </div>
 
-      {carregando && <p className="estado-lista" role="status">Buscando dados na Open-Meteo…</p>}
+      {carregando && <p className="estado-lista" role="status">Consultando o clima de São Paulo…</p>}
       <Mensagem tipo="erro">{erro}</Mensagem>
 
       {!clima && !carregando && !erro && (

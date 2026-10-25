@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { cadastrarProduto, listarProdutos } from '../services/produtoService.js';
-import { consultarClimaSaoPaulo } from '../services/climaService.js';
 
 export default function useAlimentos() {
   const [alimentos, setAlimentos] = useState([]);
@@ -30,28 +29,7 @@ export default function useAlimentos() {
     setSalvando(true);
 
     try {
-      let clima;
-
-      try {
-        clima = await consultarClimaSaoPaulo();
-      } catch {
-        throw new Error('Não foi possível consultar o clima de São Paulo. O alimento não foi cadastrado. Tente novamente.');
-      }
-
-      const produto = {
-        nome,
-        temperatura: clima.temperatura,
-        chuva: clima.chuva,
-        condicao: clima.condicao,
-        referenciaEm: clima.referenciaEm,
-      };
-
-      try {
-        await cadastrarProduto(produto);
-      } catch {
-        throw new Error('Não foi possível salvar o alimento. Confira se o backend está ligado e tente novamente.');
-      }
-
+      await cadastrarProduto(nome);
       await consultarAlimentos();
     } finally {
       setSalvando(false);
