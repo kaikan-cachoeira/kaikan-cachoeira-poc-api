@@ -5,8 +5,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/produtos': 'http://127.0.0.1:8080',
-      '/clima': 'http://127.0.0.1:8080',
+      '/produtos': 'http://127.0.0.1:8081',
+      '/clima': 'http://127.0.0.1:8081',
     },
   },
 });
